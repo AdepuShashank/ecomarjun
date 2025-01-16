@@ -2,11 +2,8 @@ package com.shashank.ecom.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.annotations.Cascade;
+import org.springframework.web.bind.annotation.*;
 
 import com.shashank.ecom.Services.CategoryService;
 import com.shashank.ecom.models.Category;
@@ -25,6 +22,7 @@ public class CategoryController {
 		
 		return cat;
 	}
+
 	@GetMapping("/categories")
 	public List<Category> GetAllCat()
 	{
@@ -32,10 +30,15 @@ public class CategoryController {
 		
 		return allcat;
 	}
+
 	@PostMapping("/categories")
 	public Category SaveCategory(@RequestBody Category catbyuser) {
 		Category savecat = CategoryService.SaveCategory(catbyuser);
 		return savecat;
 	}
 
+	@DeleteMapping("/categories/{id}")
+	public String DeleteProduct(@PathVariable("id") Long id){
+		return CategoryService.deleteCategory(id);
+	}
 }

@@ -37,9 +37,15 @@ public class CategoryService {
 		List<Category> allcat = categoryRepository.findAll();
 		return allcat;
 	}
+
 	public Category SaveCategory(Category category) {
 		Category savecat = categoryRepository.save(category);
 		
 		return savecat;
+	}
+
+	public String deleteCategory(Long id){
+		categoryRepository.deleteById(id);
+		return "Deleted All";
 	}
 }

@@ -1,8 +1,11 @@
 package com.shashank.ecom.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.shashank.ecom.DTO.CategoryDTO;
+import com.shashank.ecom.DTO.ProductDTO;
 import org.springframework.stereotype.Service;
 
 import com.shashank.ecom.Exceptions.ProductNotFoundException;
@@ -21,7 +24,7 @@ public class ProductService {
 		this.categoryRepository = categoryRepository;
 	}
 	
-	public Product GetProduct(Long id) throws ProductNotFoundException{
+	public ProductDTO GetProduct(Long id) throws ProductNotFoundException{
 		Optional<Product> GetASingleProductById;
 		GetASingleProductById = productRepository.findById(id);
 		
@@ -33,13 +36,39 @@ public class ProductService {
 		else {
 			SingleProduct = GetASingleProductById.get();
 		}
-		return SingleProduct;
+
+		ProductDTO productDTO;
+		productDTO = new ProductDTO();
+
+		productDTO.setId(SingleProduct.getId());
+		productDTO.setName(SingleProduct.getName());
+		productDTO.setImage(SingleProduct.getImage());
+		productDTO.setPrice(SingleProduct.getPrice());
+		productDTO.setCategoryName(SingleProduct.getCategory().getName());
+
+		return productDTO;
 	}
 	
-	public List<Product> GetAllProducts(){
+	public List<ProductDTO> GetAllProducts(){
 		List<Product> ProductFromDB ;
 		ProductFromDB = productRepository.findAll();
-		return ProductFromDB;
+
+		List<ProductDTO> productDTOS  = new ArrayList<>();
+
+		for(Product p : ProductFromDB){
+			ProductDTO productDTO;
+			productDTO = new ProductDTO();
+
+			productDTO.setId(p.getId());
+			productDTO.setName(p.getName());
+			productDTO.setImage(p.getImage());
+			productDTO.setPrice(p.getPrice());
+			productDTO.setCategoryName(p.getCategory().getName());
+
+			productDTOS.add(productDTO);
+		}
+
+		return productDTOS;
 	}
 
 	public Product PostProduct(Product product) {
@@ -65,4 +94,17 @@ public class ProductService {
 		
 		return productRepository.save(saveProduct);
 	}
+
+//	public String deleteProduct(){
+//		int count = productRepository.deleteProductWhereCategoryNull();
+//		System.out.println(count);
+//		return "Deleted All";
+//	}
+
+	// handle product not found exception
+	public String deleteProduct(Long id){
+		productRepository.deleteById(id);
+		return "Deleted All";
+	}
+
 }
