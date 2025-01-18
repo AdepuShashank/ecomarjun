@@ -41,5 +41,12 @@ public class CategoryService {
 		Category savecat = categoryRepository.save(category);
 		
 		return savecat;
+		
 	}
+	public String deletecategory(Long id) {
+		categoryRepository.deleteById(id);
+		
+		return "Deleted";
+	}
+ 
 }

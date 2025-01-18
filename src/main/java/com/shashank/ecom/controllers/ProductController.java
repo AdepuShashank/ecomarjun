@@ -4,12 +4,14 @@ package com.shashank.ecom.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shashank.ecom.DTO.ProductDTO;
 import com.shashank.ecom.Services.ProductService;
 import com.shashank.ecom.models.Product;
 
@@ -24,18 +26,18 @@ public class ProductController {
         this.ProductService = productService;
     }
 	@GetMapping("/products/{id}")
-	public Product GetProduct(@PathVariable("id") Long id)
+	public ProductDTO GetProduct(@PathVariable("id") Long id)
 	{
 		
-		Product prfdb = ProductService.GetProduct(id);
+		ProductDTO prfdb = ProductService.GetProduct(id);
 		
 		return prfdb;
 		 
 		
 	}  
 	@GetMapping("/products")
-	public List<Product> GetAllProduccts() {
-		List<Product> allprfdb = ProductService.GetAllProducts();
+	public List<ProductDTO> GetAllProduccts() {
+		List<ProductDTO> allprfdb = ProductService.GetAllProducts();
 		return allprfdb;
 		
 	}
@@ -44,5 +46,10 @@ public class ProductController {
 		Product saveProduct = ProductService.PostProduct(productfromuser);
 		
 		return saveProduct;
+	}
+	
+	@DeleteMapping("/products/{id}")
+	public String DeleteProduct(@PathVariable("id") long id) {
+		return ProductService.deleteProduct(id);
 	}
 }

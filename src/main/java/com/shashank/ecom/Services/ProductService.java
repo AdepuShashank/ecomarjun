@@ -1,10 +1,12 @@
 package com.shashank.ecom.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.shashank.ecom.DTO.ProductDTO;
 import com.shashank.ecom.Exceptions.ProductNotFoundException;
 import com.shashank.ecom.Repository.CategoryRepository;
 import com.shashank.ecom.Repository.ProductRepository;
@@ -21,7 +23,7 @@ public class ProductService {
 		this.categoryRepository = categoryRepository;
 	}
 	
-	public Product GetProduct(Long id) throws ProductNotFoundException{
+	public ProductDTO GetProduct(Long id) throws ProductNotFoundException{
 		Optional<Product> GetASingleProductById;
 		GetASingleProductById = productRepository.findById(id);
 		
@@ -33,13 +35,36 @@ public class ProductService {
 		else {
 			SingleProduct = GetASingleProductById.get();
 		}
-		return SingleProduct;
+		
+		ProductDTO productDTO;
+		productDTO = new ProductDTO();
+		
+		productDTO.setId(SingleProduct.getId());
+		productDTO.setName(SingleProduct.getName());
+		productDTO.setPrice(SingleProduct.getPrice());
+		productDTO.setImage(SingleProduct.getImage());
+		productDTO.setCategoryName(SingleProduct.getCategory().getName());
+		
+		return productDTO;
 	}
 	
-	public List<Product> GetAllProducts(){
+	public List<ProductDTO> GetAllProducts(){
 		List<Product> ProductFromDB ;
 		ProductFromDB = productRepository.findAll();
-		return ProductFromDB;
+		List<ProductDTO> productDTOS = new ArrayList<>();
+		
+		for(Product p : ProductFromDB) {
+			ProductDTO productDTO = new ProductDTO();
+			
+			productDTO.setId(p.getId());
+			productDTO.setName(p.getName());
+			productDTO.setPrice(p.getPrice());
+			productDTO.setImage(p.getImage());
+			productDTO.setCategoryName(p.getCategory().getName());
+			
+			productDTOS.add(productDTO);
+		}
+		return productDTOS;
 	}
 
 	public Product PostProduct(Product product) {
@@ -64,5 +89,10 @@ public class ProductService {
 		saveProduct.setPrice(product.getPrice());
 		
 		return productRepository.save(saveProduct);
+	}
+	
+	public String deleteProduct(long id) {
+		productRepository.deleteById(id);
+		return "Deleted by id";
 	}
 }

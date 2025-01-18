@@ -1,5 +1,8 @@
 package com.shashank.ecom.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
@@ -9,7 +12,9 @@ public class Product extends BaseModel{
 		private String name;
 		private double price;
 		private String image;
+		
 		@ManyToOne
+		@OnDelete(action = OnDeleteAction.CASCADE)
 		private Category category;
 		//ecomproject
 		

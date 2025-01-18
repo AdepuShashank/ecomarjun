@@ -2,6 +2,7 @@ package com.shashank.ecom.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,10 @@ public class CategoryController {
 	public Category SaveCategory(@RequestBody Category catbyuser) {
 		Category savecat = CategoryService.SaveCategory(catbyuser);
 		return savecat;
+	}
+	@DeleteMapping("/categories/{id}")
+	public String DeleteProduct(@PathVariable("id") Long id) {
+		return CategoryService.deletecategory(id);
 	}
 
 }
