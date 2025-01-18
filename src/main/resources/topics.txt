@@ -1,0 +1,6 @@
+- Delete, DTOs | update
+- Orders
+- Payment Gateway
+- Pagination, Filter, Search
+- Redis
+- AWS

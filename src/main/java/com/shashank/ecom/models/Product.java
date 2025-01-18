@@ -3,8 +3,10 @@ package com.shashank.ecom.models;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+
 
 @Entity
 public class Product extends BaseModel{
@@ -12,12 +14,11 @@ public class Product extends BaseModel{
 		private String name;
 		private double price;
 		private String image;
-		
+
 		@ManyToOne
 		@OnDelete(action = OnDeleteAction.CASCADE)
 		private Category category;
-		//ecomproject
-		
+
 		public Product(String name, Long id, double price, String image,Category category) {
 			
 			this.name = name;
@@ -25,8 +26,7 @@ public class Product extends BaseModel{
 			this.image = image;
 			this.category = category;
 		}
-		
-		
+
 		public Product() {
 			
 		}

@@ -1,6 +1,7 @@
 package com.shashank.ecom.DTO;
 
 public class CategoryDTO {
+
 	private String name;
 
 	public CategoryDTO(String name) {
@@ -18,4 +19,5 @@ public class CategoryDTO {
 	}
 
 	
+
 }

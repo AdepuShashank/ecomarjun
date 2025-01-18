@@ -1,8 +1,8 @@
 package com.shashank.ecom.controllers;
 
 
-
 import java.util.List;
+
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.shashank.ecom.DTO.ProductDTO;
 import com.shashank.ecom.Services.ProductService;
 import com.shashank.ecom.models.Product;
@@ -18,7 +19,6 @@ import com.shashank.ecom.models.Product;
 
 @RestController
 public class ProductController {
-	//ecom project
 
 	ProductService ProductService;
 	
@@ -32,24 +32,26 @@ public class ProductController {
 		ProductDTO prfdb = ProductService.GetProduct(id);
 		
 		return prfdb;
-		 
-		
-	}  
+	}
+
 	@GetMapping("/products")
 	public List<ProductDTO> GetAllProduccts() {
 		List<ProductDTO> allprfdb = ProductService.GetAllProducts();
 		return allprfdb;
 		
 	}
+
 	@PostMapping("/products")
 	public Product PostProduct(@RequestBody Product productfromuser) {
 		Product saveProduct = ProductService.PostProduct(productfromuser);
 		
 		return saveProduct;
 	}
+
 	
 	@DeleteMapping("/products/{id}")
 	public String DeleteProduct(@PathVariable("id") long id) {
 		return ProductService.deleteProduct(id);
 	}
+
 }

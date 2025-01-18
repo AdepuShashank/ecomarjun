@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.shashank.ecom.Services.CategoryService;
 import com.shashank.ecom.models.Category;
 
@@ -26,6 +27,7 @@ public class CategoryController {
 		
 		return cat;
 	}
+
 	@GetMapping("/categories")
 	public List<Category> GetAllCat()
 	{
@@ -33,6 +35,7 @@ public class CategoryController {
 		
 		return allcat;
 	}
+
 	@PostMapping("/categories")
 	public Category SaveCategory(@RequestBody Category catbyuser) {
 		Category savecat = CategoryService.SaveCategory(catbyuser);
@@ -42,5 +45,4 @@ public class CategoryController {
 	public String DeleteProduct(@PathVariable("id") Long id) {
 		return CategoryService.deletecategory(id);
 	}
-
 }
