@@ -69,6 +69,7 @@ public class ProductService {
 		return productDTOS;
 	}
 
+	// make it loosely coupled
 	public Product PostProduct(Product product) {
 		Product saveProduct = new Product();
 		
@@ -92,7 +93,33 @@ public class ProductService {
 		
 		return productRepository.save(saveProduct);
 	}
-	
+
+	public Product UpdateProduct(Long id, String name, Double price, String image, Category category) throws ProductNotFoundException{
+		Optional<Product> optionalProduct = productRepository.findById(id);
+
+		if(optionalProduct.isEmpty()) {
+			throw new ProductNotFoundException("no product of that type in database");
+		}
+
+		Product productToUpdate = optionalProduct.get();
+
+		if(name != null){
+			productToUpdate.setName(name);
+		}
+		if(price != null){
+			productToUpdate.setPrice(price);
+		}
+		if(image != null){
+			productToUpdate.setImage(image);
+		}
+		if(category != null){
+			productToUpdate.setCategory(category);
+		}
+
+		return productRepository.save(productToUpdate);
+	}
+
+
 	public String deleteProduct(long id) {
 		productRepository.deleteById(id);
 		return "Deleted by id";

@@ -1,6 +1,9 @@
 package com.shashank.ecom.DTO;
 
 
+import com.shashank.ecom.models.Category;
+import com.shashank.ecom.models.Product;
+
 public class ProductDTO {
 	private Long id;
 	private String name;

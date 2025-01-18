@@ -4,3 +4,11 @@
 - Pagination, Filter, Search
 - Redis
 - AWS
+
+
+
+- update category
+- make create prod server loosely coupled
+- create category mapper
+- at all places use mapper, don't use .set...
+- exception handling
