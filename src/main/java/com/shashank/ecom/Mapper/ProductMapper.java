@@ -17,6 +17,8 @@ public class ProductMapper {
         productDTO.setImage(p.getImage());
         productDTO.setCategoryName(p.getCategory().getName());
 
+        System.out.println("test pd cat - " + p.getCategory().getName());
+
         return productDTO;
     }
 

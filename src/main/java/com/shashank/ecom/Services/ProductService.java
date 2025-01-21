@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.shashank.ecom.DTO.CategoryDTO;
 import com.shashank.ecom.DTO.ProductDTO;
+import com.shashank.ecom.Mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
 import com.shashank.ecom.DTO.ProductDTO;
@@ -16,13 +17,17 @@ import com.shashank.ecom.models.Category;
 import com.shashank.ecom.models.Product;
 @Service
 public class ProductService {
-	
+
+	CategoryService categoryService;
 	ProductRepository productRepository;
 	CategoryRepository categoryRepository;
+	ProductMapper productMapper;
 	
-	public ProductService(ProductRepository productRepository,CategoryRepository categoryRepository) {
+	public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ProductMapper productMapper, CategoryService categoryService) {
 		this.productRepository = productRepository;
 		this.categoryRepository = categoryRepository;
+		this.productMapper = productMapper;
+		this.categoryService = categoryService;
 	}
 	
 	public ProductDTO GetProduct(Long id) throws ProductNotFoundException{
@@ -94,7 +99,7 @@ public class ProductService {
 		return productRepository.save(saveProduct);
 	}
 
-	public Product UpdateProduct(Long id, String name, Double price, String image, Category category) throws ProductNotFoundException{
+	public ProductDTO UpdateProduct(Long id, String name, Double price, String image, String categoryName) throws ProductNotFoundException{
 		Optional<Product> optionalProduct = productRepository.findById(id);
 
 		if(optionalProduct.isEmpty()) {
@@ -112,13 +117,20 @@ public class ProductService {
 		if(image != null){
 			productToUpdate.setImage(image);
 		}
-		if(category != null){
-			productToUpdate.setCategory(category);
+		if(categoryName != null){
+			// assumption, the categoryName which is coming, is already in category table of my DB
+			Category categoryFromDB = categoryService.GetSingleCatByName(categoryName);
+			productToUpdate.setCategory(categoryFromDB);
 		}
 
-		return productRepository.save(productToUpdate);
-	}
+		Product updatedProductFromDB;
+		updatedProductFromDB = productRepository.save(productToUpdate);
 
+		ProductDTO updatedProductDTO;
+		updatedProductDTO = productMapper.toProductDTO(updatedProductFromDB);
+
+		return updatedProductDTO;
+	}
 
 	public String deleteProduct(long id) {
 		productRepository.deleteById(id);

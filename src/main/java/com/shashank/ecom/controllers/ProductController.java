@@ -53,24 +53,21 @@ public class ProductController {
 	@PutMapping("/products/{id}")
 	public ProductDTO UpdateProduct(
 			@PathVariable("id") Long id,
-			@RequestBody Product product
+			@RequestBody ProductDTO product
 			){
-
-		ProductDTO pd;
 
 		System.out.println(product.toString());
 
-		Product updatedProduct = ProductService.UpdateProduct(
+		ProductDTO updatedProduct;
+		updatedProduct = ProductService.UpdateProduct(
 				id,
 				product.getName(),
 				product.getPrice(),
 				product.getImage(),
-				product.getCategory()
+				product.getCategoryName()
 		);
 
-		pd = productMapper.toProductDTO(updatedProduct);
-
-		return pd;
+		return updatedProduct;
 	}
 
 	

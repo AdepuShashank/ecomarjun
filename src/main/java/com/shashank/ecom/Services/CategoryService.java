@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.Optional;
 
+import com.shashank.ecom.Exceptions.CategoryNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.shashank.ecom.Repository.CategoryRepository;
@@ -16,20 +17,37 @@ public class CategoryService {
 		this.categoryRepository = categoryRepository;
 	}
 
-	public Category GetSingleCat(long id){
+	public Category GetSingleCat(long id) throws CategoryNotFoundException {
 		Optional<Category> getCatById = categoryRepository.findById(id);
 		
-		Category cat = null;
+		Category cat;
 		
 		if(getCatById.isEmpty())
 		{
-			System.out.println("empty");
+			throw new CategoryNotFoundException("Category not found in DB with ID : " + id );
 		}
 		else
 		{
 			cat = getCatById.get();
 		}
 		
+		return cat;
+	}
+
+	public Category GetSingleCatByName(String name) throws CategoryNotFoundException {
+		Optional<Category> getCatById = categoryRepository.getCategoryByName(name);
+
+		Category cat;
+
+		if(getCatById.isEmpty())
+		{
+			throw new CategoryNotFoundException("Category not found in DB with ID : " + name );
+		}
+		else
+		{
+			cat = getCatById.get();
+		}
+
 		return cat;
 	}
 	

@@ -1,4 +1,5 @@
 - Delete, DTOs | update
+
 - Orders
 - Payment Gateway
 - Pagination, Filter, Search
@@ -11,4 +12,6 @@
 - make create prod server loosely coupled
 - create category mapper
 - at all places use mapper, don't use .set...
-- exception handling
+
+- exception handling, in all the GET, PUT, DELETE calls, (where ever we are trying to get some data from database)
+- there is a chance of that data not being present, so throw exception

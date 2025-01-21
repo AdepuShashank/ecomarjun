@@ -41,6 +41,7 @@ public class CategoryController {
 		Category savecat = CategoryService.SaveCategory(catbyuser);
 		return savecat;
 	}
+
 	@DeleteMapping("/categories/{id}")
 	public String DeleteProduct(@PathVariable("id") Long id) {
 		return CategoryService.deletecategory(id);
