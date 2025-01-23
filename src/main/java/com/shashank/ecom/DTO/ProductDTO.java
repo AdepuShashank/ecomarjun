@@ -1,8 +1,7 @@
 package com.shashank.ecom.DTO;
 
 
-import com.shashank.ecom.models.Category;
-import com.shashank.ecom.models.Product;
+
 
 public class ProductDTO {
 	private Long id;
@@ -58,14 +57,6 @@ public class ProductDTO {
 				+ categoryName + "]";
 	}
 
-	@Override
-	public String toString() {
-		return "ProductDTO{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", image='" + image + '\'' +
-				", price=" + price +
-				", categoryName='" + categoryName + '\'' +
-				'}';
-	}
+	
+	
 }

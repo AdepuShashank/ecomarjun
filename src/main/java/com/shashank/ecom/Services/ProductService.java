@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-<<<<<<< HEAD
-=======
+
 import com.shashank.ecom.DTO.CategoryDTO;
 import com.shashank.ecom.DTO.ProductDTO;
 import com.shashank.ecom.Mapper.ProductMapper;
->>>>>>> 9ac77e67a83a75ded48077b550608993764feac9
+
 import org.springframework.stereotype.Service;
 
 import com.shashank.ecom.DTO.ProductDTO;
@@ -103,38 +102,7 @@ public class ProductService {
 		return productMapper.toProductDTO(productRepository.save(saveProduct));
 	}
 
-	public ProductDTO UpdateProduct(Long id, String name, Double price, String image, String categoryName) throws ProductNotFoundException{
-		Optional<Product> optionalProduct = productRepository.findById(id);
-
-		if(optionalProduct.isEmpty()) {
-			throw new ProductNotFoundException("no product of that type in database");
-		}
-
-		Product productToUpdate = optionalProduct.get();
-
-		if(name != null){
-			productToUpdate.setName(name);
-		}
-		if(price != null){
-			productToUpdate.setPrice(price);
-		}
-		if(image != null){
-			productToUpdate.setImage(image);
-		}
-		if(categoryName != null){
-			// assumption, the categoryName which is coming, is already in category table of my DB
-			Category categoryFromDB = categoryService.GetSingleCatByName(categoryName);
-			productToUpdate.setCategory(categoryFromDB);
-		}
-
-		Product updatedProductFromDB;
-		updatedProductFromDB = productRepository.save(productToUpdate);
-
-		ProductDTO updatedProductDTO;
-		updatedProductDTO = productMapper.toProductDTO(updatedProductFromDB);
-
-		return updatedProductDTO;
-	}
+	
 
 	public String deleteProduct(long id) {
 		productRepository.deleteById(id);
