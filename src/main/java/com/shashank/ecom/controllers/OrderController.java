@@ -2,9 +2,7 @@ package com.shashank.ecom.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.shashank.ecom.Services.OrderService;
 import com.shashank.ecom.models.Order;
@@ -29,5 +27,10 @@ public class OrderController {
 	public List<Order> GetAllOrders(){
 		List<Order> allorders = OrderService.GetAllOrders();
 		return allorders;
+	}
+
+	@PostMapping("/order")
+	public Long CreateOrder(@RequestBody Order order){
+		return OrderService.CreateOrder(order.getUser(), order.getProducts());
 	}
 }

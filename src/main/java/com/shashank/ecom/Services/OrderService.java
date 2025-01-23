@@ -3,6 +3,10 @@ package com.shashank.ecom.Services;
 import java.util.List;
 import java.util.Optional;
 
+import com.shashank.ecom.models.OrderStatus;
+import com.shashank.ecom.models.Product;
+import com.shashank.ecom.models.User;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import com.shashank.ecom.Exceptions.OrderNOtFoundException;
@@ -38,5 +42,25 @@ public class OrderService {
 		List<Order> allorders = orderRepository.findAll();
 		
 		return allorders;
+	}
+
+	public Long CreateOrder(User user, List<Product> products){
+		Order order = new Order();
+
+		Double totalAmount = 0.0;
+		for(Product p : products){
+			totalAmount += p.getPrice();
+		}
+
+		order.setUser(user);
+		order.setProducts(products);
+		order.setPrice(totalAmount);
+		order.setOrderstatus(OrderStatus.CREATED);
+
+		Order savedOrder = orderRepository.save(order);
+
+		System.out.println(savedOrder.toString());
+
+		return savedOrder.getId();
 	}
 }
