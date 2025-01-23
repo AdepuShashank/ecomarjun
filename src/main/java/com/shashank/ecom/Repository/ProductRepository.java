@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
 import com.shashank.ecom.models.Product;
-import com.shashank.ecom.models.Category;
+
 
 import jakarta.transaction.Transactional;
 

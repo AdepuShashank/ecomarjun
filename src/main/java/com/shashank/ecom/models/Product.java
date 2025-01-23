@@ -3,6 +3,7 @@ package com.shashank.ecom.models;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -12,14 +13,14 @@ import jakarta.persistence.ManyToOne;
 public class Product extends BaseModel{
 		
 		private String name;
-		private double price;
+		private Double price;
 		private String image;
 
 		@ManyToOne
 		@OnDelete(action = OnDeleteAction.CASCADE)
 		private Category category;
 
-		public Product(String name, Long id, double price, String image,Category category) {
+		public Product(String name, Long id, Double price, String image,Category category) {
 			
 			this.name = name;
 			this.price = price;
@@ -45,10 +46,11 @@ public class Product extends BaseModel{
 			this.name = name;
 		}
 		
-		public double getPrice() {
+		public Double getPrice() {
 			return price;
 		}
-		public void setPrice(double price) {
+		@JsonProperty("price")
+		public void setPrice(Double price) {
 			this.price = price;
 		}
 		public String getImage() {
