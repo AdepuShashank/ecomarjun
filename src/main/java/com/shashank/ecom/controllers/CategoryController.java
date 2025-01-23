@@ -26,14 +26,15 @@ public class CategoryController {
 		this.CategoryMapper = CategoryMapper;
 		
 	}
-	@GetMapping("/categories/{id}")
+
+	@GetMapping("/category/{id}")
 	public Category GetSingleCat(@PathVariable("id") int id) {
 		Category cat = CategoryService.GetSingleCat(id);
 		
 		return cat;
 	}
 
-	@GetMapping("/categories")
+	@GetMapping("/category")
 	public List<Category> GetAllCat()
 	{
 		List<Category> allcat = CategoryService.GetAllCat();
@@ -41,13 +42,13 @@ public class CategoryController {
 		return allcat;
 	}
 
-	@PostMapping("/categories")
+	@PostMapping("/category")
 	public Category SaveCategory(@RequestBody Category catbyuser) {
 		Category savecat = CategoryService.SaveCategory(catbyuser);
 		return savecat;
 	}
 	
-	@PutMapping("/categories/{id}")
+	@PutMapping("/category/{id}")
 	public CategoryDTO UpdateCategory(@PathVariable("id") long id,@RequestBody Category category) {
 		
 		
@@ -57,7 +58,7 @@ public class CategoryController {
 		
 		return CategoryMapper.toCategoryDTO(updateCategory);
 	}
-	@DeleteMapping("/categories/{id}")
+	@DeleteMapping("/category/{id}")
 	public String DeleteProduct(@PathVariable("id") Long id) {
 		return CategoryService.deletecategory(id);
 	}

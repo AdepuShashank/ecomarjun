@@ -18,14 +18,14 @@ public class OrderController {
 	}
 	
 	
-	@GetMapping("/Orders/{id}")
+	@GetMapping("/order/{id}")
 	public Order GetSingleOrder(@PathVariable("id") long id) {
 		Order SingleOrder;
 		SingleOrder = OrderService.GetSingleOrder(id);
 		return SingleOrder;  
 	}
 	
-	@GetMapping("Orders")
+	@GetMapping("order")
 	public List<Order> GetAllOrders(){
 		List<Order> allorders = OrderService.GetAllOrders();
 		return allorders;
