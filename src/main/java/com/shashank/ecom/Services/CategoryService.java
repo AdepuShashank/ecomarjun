@@ -35,6 +35,7 @@ public class CategoryService {
 		
 		return cat;
 	}
+
 	public Category GetSingleCatByName(String name) throws CategoryNotFoundException{
 		Optional<Category> getCatById = categoryRepository.getCategoryByName(name);
 		
@@ -61,6 +62,8 @@ public class CategoryService {
 		return savecat;
 		
 	}
+
+	// handle the excp handln correctly
 	public Category UpdateCategory(long id,String name) throws CategoryNotFoundException {
 		Optional<Category> optionalCategory = categoryRepository.findById(id);
 		
@@ -72,6 +75,8 @@ public class CategoryService {
 		
 		return categoryRepository.save(categoryToUpdate);
 	}
+
+	// handle exception handln
 	public String deletecategory(Long id) {
 		categoryRepository.deleteById(id);
 		

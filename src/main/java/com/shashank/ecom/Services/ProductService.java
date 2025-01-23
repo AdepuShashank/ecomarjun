@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-import com.shashank.ecom.DTO.CategoryDTO;
-import com.shashank.ecom.DTO.ProductDTO;
-import com.shashank.ecom.Mapper.ProductMapper;
-
 import org.springframework.stereotype.Service;
 
 import com.shashank.ecom.DTO.ProductDTO;
@@ -104,45 +100,10 @@ public class ProductService {
 
 	
 
+	/// handle excp handln
 	public String deleteProduct(long id) {
 		productRepository.deleteById(id);
-		return "Deleted by id";
+		return "Deleted product " + id;
 	}
-	
-	public ProductDTO UpdateProduct(Long id, String name, Double price, String image, String category) throws ProductNotFoundException {
-		Optional<Product> optionalProduct = productRepository.findById(id);
-		
-		if(optionalProduct.isEmpty()) {
-			throw new ProductNotFoundException("no product found with that id");
-			
-		}
-		
-		Product productToUpdate = optionalProduct.get();
-		
-		if(name!= null)
-		{
-			productToUpdate.setName(name);
-		}
-		if(price!= null)
-		{
-			productToUpdate.setPrice(price);
-		}
-		if(image!= null)
-		{
-			productToUpdate.setImage(image);
-		}
-		if(category!= null)
-		{
-			Category categoryFromDB = categoryService.GetSingleCatByName(category);
-			productToUpdate.setCategory(categoryFromDB);
-		}
-		
-		Product updatedProductFromDB;
-		updatedProductFromDB = productRepository.save(productToUpdate);
 
-		ProductDTO updatedProductDTO;
-		updatedProductDTO = productMapper.toProductDTO(updatedProductFromDB);
-
-		return updatedProductDTO;
-	}
 }

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.shashank.ecom.DTO.ProductDTO;
-import com.shashank.ecom.Mapper.ProductMapper;
 import com.shashank.ecom.Services.ProductService;
 
 
@@ -27,7 +27,7 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
-	@GetMapping("/products/{id}")
+	@GetMapping("/product/{id}")
 	public ProductDTO GetProduct(@PathVariable("id") Long id)
 	{
 
@@ -36,16 +36,15 @@ public class ProductController {
 		return prfdb;
 	}
 
-	@GetMapping("/products")
+	@GetMapping("/product")
 	public List<ProductDTO> GetAllProduccts() {
 		List<ProductDTO> allprfdb = ProductService.GetAllProducts();
 		return allprfdb;
 		
 	}
-	
-	
 
-	@PostMapping("/products")
+
+	@PostMapping("/product")
 	public ProductDTO PostProduct(@RequestBody ProductDTO productfromuser) {
 		ProductDTO saveProduct = ProductService.PostProduct(
 				productfromuser.getName(),
@@ -58,13 +57,11 @@ public class ProductController {
 
 	
 
-	@PutMapping("/products/{id}")
+	@PutMapping("/product/{id}")
 	public ProductDTO UpdateProduct(
 			@PathVariable("id") Long id,
 			@RequestBody ProductDTO product
 			){
-
-		System.out.println(product.toString());
 
 		ProductDTO updatedProduct;
 		updatedProduct = ProductService.UpdateProduct(
@@ -79,7 +76,7 @@ public class ProductController {
 	}
 
 	
-	@DeleteMapping("/products/{id}")
+	@DeleteMapping("/product/{id}")
 	public String DeleteProduct(@PathVariable("id") long id) {
 		return ProductService.deleteProduct(id);
 	}

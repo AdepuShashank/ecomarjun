@@ -1,8 +1,6 @@
 package com.shashank.ecom.DTO;
 
 
-
-
 public class ProductDTO {
 	private Long id;
 	private String name;
@@ -50,11 +48,6 @@ public class ProductDTO {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-	@Override
-	public String toString() {
-		return "ProductDTO [id=" + id + ", name=" + name + ", image=" + image + ", price=" + price + ", categoryName="
-				+ categoryName + "]";
 	}
 
 	
